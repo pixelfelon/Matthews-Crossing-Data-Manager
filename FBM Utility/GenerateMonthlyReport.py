@@ -109,13 +109,16 @@ def WriteSummaryData(q, ws, origin=(1,1),  month=None, year=None, existing_clien
 	ws.cell(row=origin[0] + len(donor_catagories) + 4, column=origin[1]).style = "Normal"
 	if (month, year) in FixedData.override.keys():
 		ws.cell(row=origin[0] + len(donor_catagories) + 5, column=origin[1]).value = FixedData.override[(month, year)]["clients"]
-                ws.cell(row=origin[0] + len(donor_catagories) + 6, column=origin[1]).value = FixedData.override[(month, year)]["new_clients"]
-                ws.cell(row=origin[0] + len(donor_catagories) + 7, column=origin[1]).value = FixedData.override[(month, year)]["impact"]
+		ws.cell(row=origin[0] + len(donor_catagories) + 6, column=origin[1]).value = FixedData.override[(month, year)]["new_clients"]
+		ws.cell(row=origin[0] + len(donor_catagories) + 7, column=origin[1]).value = FixedData.override[(month, year)]["impact"]
 	else:
 		ws.cell(row=origin[0] + len(donor_catagories) + 5, column=origin[1]).value = len(clients)
 		ws.cell(row=origin[0] + len(donor_catagories) + 6, column=origin[1]).value = len(new_clients)
 		ws.cell(row=origin[0] + len(donor_catagories) + 7, column=origin[1]).value = user_data["Tracking Result"].sum()
-	ws.cell(row=origin[0] + len(donor_catagories) + 8, column=origin[1]).value = "={}*{}".format(ws.cell(row=origin[0] + len(donor_catagories) + 5, column=origin[1]).coordinate, FixedData.output_weight)
+	if len(clients) > 0 or (month, year) in FixedData.override.keys():
+		ws.cell(row=origin[0] + len(donor_catagories) + 8, column=origin[1]).value = "={}*{}".format(ws.cell(row=origin[0] + len(donor_catagories) + 5, column=origin[1]).coordinate, FixedData.output_weight)
+	else:
+		ws.cell(row=origin[0] + len(donor_catagories) + 8, column=origin[1]).value = FixedData.outgoing_food
 	ws.cell(row=origin[0] + len(donor_catagories) + 9, column=origin[1]).style = "Normal"
 	ws.cell(row=origin[0] + len(donor_catagories) + 10, column=origin[1]).value = "=IF(ISTEXT({0:}), {2:}-{1:}, {2:}-{1:}+{0:})+({3:})".format(ws.cell(row=origin[0] + len(donor_catagories) + 10, column=origin[1]-1).coordinate, ws.cell(row=origin[0] + len(donor_catagories) + 8, column=origin[1]).coordinate, ws.cell(row=origin[0] + len(donor_catagories) + 3, column=origin[1]).coordinate, inventory_adjust)
 	

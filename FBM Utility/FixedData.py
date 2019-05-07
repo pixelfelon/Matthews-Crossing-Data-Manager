@@ -26,3 +26,5 @@ inventory = {
 }
 
 output_weight = 50
+
+outgoing_food = 80000

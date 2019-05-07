@@ -104,6 +104,8 @@ def graph_2345_data(fbm):
 		intake_total = food_month[food_month[u'DonorCategory'] != u'Waste'][u'Weight (lbs)'].sum()
 		waste_total =  food_month[food_month[u'DonorCategory'] == u'Waste'][u'Weight (lbs)'].sum()
 		output_total = month_clients * FixedData.output_weight
+		if output_total = 0:
+			output_total = FixedData.outgoing_food
 		food_out_total = waste_total + output_total
 		
 		if (period_start.month, period_start.year) in FixedData.inventory.keys():
