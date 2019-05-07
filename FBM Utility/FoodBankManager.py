@@ -368,24 +368,24 @@ if __name__ == '__main__':
 	pd.set_option('display.expand_frame_repr', False)
 
 	if len(sys.argv) < 2:
-		print "Usage: 'task' <params>etc..."
+		print("Usage: 'task' <params>etc...")
 		exit(1)
 	q = FBM("mcfb.soxbox.co")
 	if sys.argv[1] == "donors":
 		donor_list = q.GetDonors()
 		headers = next(donor_list)
 		for row in donor_list:
-			print "{"
+			print("{")
 			for a, b in zip(row, headers):
-				print "\"" + b + "\": \"" + a + "\","
-			print "},"
+				print("\"" + b + "\": \"" + a + "\",")
+			print("},")
 	elif sys.argv[1] == "add_donor":
 		# json formatted input wih the following params
 		# first, last, email, street, tow, state, zip
-		print q.AddDonor(sys.argv[4])
+		print(q.AddDonor(sys.argv[4]))
 	elif sys.argv[1] == "add_donation":
 		# type user pass donor_id pounds donation_type date (YYYY-MM-DD)
-		print q.PostDonation(sys.argv[2], 0, sys.argv[3], sys.argv[4], sys.argv[5])
+		print(q.PostDonation(sys.argv[2], 0, sys.argv[3], sys.argv[4], sys.argv[5]))
 	elif sys.argv[1] == "fooddonations":
 		# start-date, end-date (format mm-dd-yyyy
 		start = datetime.strptime(sys.argv[2], "%Y-%m-%d")
@@ -393,7 +393,7 @@ if __name__ == '__main__':
 		donor_list = q.GetFoodDonations(start, end)
 		filename = "out/GetFoodDonations-{}-{}.csv".format(sys.argv[2], sys.argv[3])
 		donor_list.to_csv(filename, sep=',')
-		print filename
+		print(filename)
 	elif sys.argv[1] == "guestdata":
 		# start-date, end-date (format mm-dd-yyyy
 		start = datetime.strptime(sys.argv[2], "%Y-%m-%d")
@@ -401,4 +401,4 @@ if __name__ == '__main__':
 		donor_list = q.GetGuestData(start, end)
 		filename = "out/GetGuestData-{}-{}.csv".format(sys.argv[2], sys.argv[3])
 		donor_list.to_csv(filename, sep=',')
-		print filename
+		print(filename)

@@ -276,6 +276,6 @@ def WriteExcelSheet(name, month=None, year=None):
 if __name__ == '__main__':
 	pd.set_option('display.expand_frame_repr', False)
 	if len(sys.argv) < 3:
-		print "Run with \"<month number (1-12)> <Year (4 digit)>\""
+		print("Run with \"<month number (1-12)> <Year (4 digit)>\"")
 		exit()
-	print WriteExcelSheet("out/Report {}-{}".format(sys.argv[1], sys.argv[2]), month=int(sys.argv[1]), year=int(sys.argv[2]))
+	print(WriteExcelSheet("out/Report {}-{}".format(sys.argv[1], sys.argv[2]), month=int(sys.argv[1]), year=int(sys.argv[2])))
