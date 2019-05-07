@@ -18,6 +18,7 @@ $dbi = new DashboardInterface($conn);
 			display: flex;
 			flex-direction: row;
 			flex-grow: 1;
+			overflow: hidden;
 		}
 		.row-item {
 			display: block;
