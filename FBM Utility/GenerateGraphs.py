@@ -48,6 +48,8 @@ def graph_1(fbm):
 	messy_data = GenerateMonthlyReport.PivotInventoryTable(food_data)
 	useful_data = messy_data.to_dict()[('sum', 'Weight (lbs)')]
 	sorted_data = zip(*sorted(useful_data.items(), key=operator.itemgetter(1), reverse=True))
+	if "Waste" in sorted_data:
+		del sorted_data["Waste"]
 	
 	data = [go.Bar(x=sorted_data[0], y=sorted_data[1])]
 	layout = go.Layout(
