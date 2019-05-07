@@ -235,10 +235,9 @@ class FBM(object):
 			if don_type == "":
 				if "Anonymous" in data_dict["First Name"]:
 					don_type = "Individual Donor"
-			# Senior Boxes (this must cone before Church)
-			if don_type == "":
-				if "Senior Boxes" in data_dict["Name of Food Item"] or "Senior Boxes" in data_dict["Memo"]:
-					don_type = "Business/Corporation/Organization"
+			# Senior Boxes (this must come before Church)
+			if "Senior Boxes" in data_dict["Name of Food Item"] or "Senior Boxes" in data_dict["Memo"]:
+				don_type = "Senior Boxes"
 			# Church
 			if don_type == "":
 				for type in ["church", "st."]:

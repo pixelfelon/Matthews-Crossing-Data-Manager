@@ -139,6 +139,9 @@ def WriteSummaryLabel(ws, origin=(1,1), donor_catagories=[]):
 
 	for cell_row in range(origin[0], origin[0] + len(donor_catagories) + 10 + 1):
 		ws.cell(row=cell_row, column=origin[1]).style = "Headline 4"
+	
+	# leave a comment about the one category discrepancy
+	ws["A6"].comment = openpyxl.comments.Comment("Government/DES numbers do NOT include Senior Box numbers, even though Senior Boxes are categorized as Government/DES.", "MCDM Application")
 
 def WriteExcelSheet(name, month=None, year=None):
 	if month is not None and year is not None:
@@ -171,7 +174,7 @@ def WriteExcelSheet(name, month=None, year=None):
 	period_start = x_start
 	inventory = 0
 	inventory_adjust = 0
-	categories = OrderedSet(["Grocery Store", "Business/Corporation/Organization", "Churches/Places of Worship", "Government/DES", "Individual Donor", "Purchased Food"])
+	categories = OrderedSet(["Grocery Store", "Business/Corporation/Organization", "Churches/Places of Worship", "Government/DES", "Senior Boxes", "Individual Donor", "Purchased Food"])
 	
 	for i in range(13):
 		period_end = period_start + relativedelta(months=+1)
