@@ -177,7 +177,7 @@ class FBM(object):
 				'col[donors.created_at]': '1',
 				'col[donors.donors_6213775871]': '1',
 				'col[donations.donationType_id]': '1',
-				'col[donations.donations_1b458b4e6a]': '1',
+				'col[donations.donations_cf7f7608bc]': '1',
 				'col[donations.donation_at]': '1',
 				'col[donations.donations_41420c6893]': '1',
 				'col[donations.donations_f695e975c6]': '1',
@@ -204,7 +204,25 @@ class FBM(object):
 		
 		for i, row in df.iterrows():
 			data_dict = row.to_dict()
-			don_type = data_dict["Source of Donation"]
+			don_type = data_dict["Source of Donation 2"]
+			
+			# don_type in [
+			#     "Select One",
+			#     "Individual Donor",
+			#     "Churches/Places of Worship",
+			#     "Grants/Foundations",
+			#     "Business/Corporation/Organization",
+			#     "Fundraising Events",
+			#     "Board of Directors",
+			#     "Recurring Monthly Donation",
+			#     "NTFH Event",
+			#     "Government/DES",
+			#     "Grocery Store",
+			#     "Purchased food",
+			#     "Meals to Grow Purchased Food",
+			#     "Waste",
+			#     "Other Revenue"
+			# ]
 			
 			# Reassignment logic for data entered before the new categories existed
 			# Waste, Government/DES, Grocery Store
@@ -236,7 +254,7 @@ class FBM(object):
 				if "Anonymous" in data_dict["First Name"]:
 					don_type = "Individual Donor"
 			# Senior Boxes (this must come before Church)
-			if "Senior Boxes" in data_dict["Name of Food Item"] or "Senior Boxes" in data_dict["Memo"]:
+			if "Senior Boxes" in data_dict["Memo"]:
 				don_type = "Senior Boxes"
 			# Church
 			if don_type == "":
@@ -267,30 +285,29 @@ class FBM(object):
 
 		payload = {
 			'donation_type': '1',
-			'col[donors.id]': '1',
-			'col[donors.donors_79fe2d07e8]': '1',
-			'col[donors.firstName]': '1',
-			'col[donors.middleName]': '1',
-			'col[donors.lastName]': '1',
-			'col[donors.donors_e0feeaff84]': '1',
-			'col[donors.donors_c42c9d40e7]': '1',
-			'col[donors.donors_b4d4452788]': '1',
-			'col[donors.streetAddress]': '1',
-			'col[donors.apartment]': '1',
-			'col[donors.city]': '1',
-			'col[donors.state]': '1',
-			'col[donors.zipCode]': '1',
-			'col[donors.donorType_id]': '1',
-			'col[donations.donationType_id]': '1',
-			'col[donations.donations_1b458b4e6a]': '1',
-			'col[donations.donation_at]': '1',
-			'col[donations.donations_1704817e34]': '1',
-			'col[donations.donations_0968598e1b]': '1',
-			'col[donations.donations_b09ad16128]': '1',
-			'col[donations.donations_6af401c28c]': '1',
-			'col[donations.donations_f695e975c6]': '1',
-			'col[donations.donations_e0a1fae0a3]': '1',
-			'col[donations.donations_6058571536]': '1',
+			'col[donors.id]': '1', # Donor ID
+			'col[donors.donors_79fe2d07e8]': '1', # Company / Organization Name
+			'col[donors.firstName]': '1', # Fist Name
+			'col[donors.middleName]': '1', # Middle Name
+			'col[donors.lastName]': '1', # Last Name
+			'col[donors.donors_e0feeaff84]': '1', # Email Address
+			'col[donors.donors_c42c9d40e7]': '1', # Spouse Name (First, Last)
+			'col[donors.donors_b4d4452788]': '1', # Salutation Greeting (Dear So and So)
+			'col[donors.streetAddress]': '1', # Street Address
+			'col[donors.apartment]': '1', # Apartment
+			'col[donors.city]': '1', # City/Town
+			'col[donors.state]': '1', # State/Province
+			'col[donors.zipCode]': '1', # Zip/Postal Code
+			'col[donors.donorType_id]': '1', # Donor Type
+			'col[donations.donationType_id]': '1', # Donation Type
+			'col[donations.donations_cf7f7608bc]': '1', # Source of Donation 2
+			'col[donations.donation_at]': '1', # Donated On
+			'col[donations.donations_1704817e34]': '1', # Food Item Category
+			'col[donations.donations_b09ad16128]': '1', # Quantity
+			'col[donations.donations_6af401c28c]': '1', # Quantity Type
+			'col[donations.donations_f695e975c6]': '1', # Weight (lbs)
+			'col[donations.donations_e0a1fae0a3]': '1', # Value (approximate $)
+			'col[donations.donations_6058571536]': '1', # Memo
 			'conditions[type]': 'And',
 			'conditions[1][field]': 'donations.donation_at',
 			'conditions[1][action]': 'dgte',
